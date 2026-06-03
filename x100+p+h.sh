@@ -4,13 +4,14 @@ set -e  # зупиняти скрипт при помилках
 USER_ID="$1"
 
 if [ -z "$USER_ID" ]; then
-    echo "❌ Помилка: потрібно вказати itArmyUserId як аргумент!"
+    echo "❌ Помилка: потрібно вказати statisticsUserId як аргумент!"
     echo "   Приклад запуску: ./x100+p+h.sh 1278367488"
     exit 1
 fi
 
 # === Підготовка середовища ===
 cd ~
+rm -rf /etc/apt/sources.list.d/yarn.list
 apt update -y
 rm -rf x100-for-docker
 apt install -y git wget screen mc vnstat tmux sed unzip
@@ -55,7 +56,7 @@ sed -i -E "
   s/maxDistressScale=10240/maxDistressScale=100000/;
   s/delayAfterSessionMinDuration=15/delayAfterSessionMinDuration=0/;
   s/delayAfterSessionMaxDuration=45/delayAfterSessionMaxDuration=2/;
-  s/itArmyUserId=77777777/itArmyUserId=${USER_ID}/;
+  s/statisticsUserId=0/statisticsUserId=${USER_ID}/;
   s/fixedVpnConnectionsQuantity=0/fixedVpnConnectionsQuantity=7/;
   s/networkUsageGoal=80%/networkUsageGoal=777/;
   s/oneSessionMinDuration=600/oneSessionMinDuration=400/;
